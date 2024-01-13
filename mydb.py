@@ -14,7 +14,7 @@ conn = mysql.connector.connect(**db_config)
 cursor = conn.cursor()
 
 # Replace 'your_database' with the name you want for your database
-database_name = 'crm'
+database_name = 'crm_db'
 
 # Create a new database
 cursor.execute(f"CREATE DATABASE {database_name}")
