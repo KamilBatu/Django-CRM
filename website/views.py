@@ -5,10 +5,7 @@ from .forms import SignUpForm
 from .forms import AddRecordForm
 from .models import Record
 
-
-
 # Create your views here.
-
 def home(request):
     records=Record.objects.all()
     if request.method=="POST":
@@ -24,8 +21,8 @@ def home(request):
             return redirect('home')
     else:
         return render(request, 'home.html', {'records':records})
-# def login_user(request):
-#     pass
+    
+# def login_user(request):    
 def logout_user(request):
     logout(request)
     messages.success(request, 'you have logged out successfuly')
@@ -47,14 +44,16 @@ def register(request):
         form = SignUpForm()
     return render(request, 'register.html', {'form': form})
 
-def record_customer(request, pk):
 
+def record_customer(request, pk):
     if request.user.is_authenticated:
         record_customer=Record.objects.get(pk=pk)
         return render(request, 'record.html', {"record_customer":record_customer})
     else:
         messages.success(request, 'you have to login frist')
         return render(request, 'home.html')
+    
+
 def delete_record(request, pk):
     if request.user.is_authenticated:
         customer=Record.objects.get(pk=pk)
@@ -78,6 +77,8 @@ def addRecord(request):
     else:
         messages.error(request, 'you need to login frist')
         return redirect('home')
+    
+
 def update(request, pk):
     if request.user.is_authenticated:
         current_record=Record.objects.get(pk=pk)
